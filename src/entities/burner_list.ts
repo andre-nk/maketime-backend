@@ -4,7 +4,6 @@ import {
   Column,
   UpdateDateColumn,
   CreateDateColumn,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
 } from "typeorm";
 
@@ -26,6 +25,7 @@ export class BurnerList extends BaseEntity {
   })
   frontBurnerTitle: string;
 
+  //TRICK (Array in TypeORM): Use "text" instead of "string" or "array", then check array to true
   @Column({
     type: "text",
     array: true,

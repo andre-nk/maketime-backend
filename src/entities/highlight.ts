@@ -4,14 +4,14 @@ import {
   Column,
   UpdateDateColumn,
   CreateDateColumn,
-  PrimaryColumn,
-  OneToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { MightDoList } from "./might_do_list";
 
 @Entity("highlight")
 export class Highlight extends BaseEntity {
+  //primary (essential for table), and auto-generated w./ type of "uuid"
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
@@ -21,6 +21,7 @@ export class Highlight extends BaseEntity {
   @Column()
   highlight: string;
 
+  //auto-generated dates, where column name can be specified
   @CreateDateColumn({
     name: "created_at",
   })
@@ -31,6 +32,7 @@ export class Highlight extends BaseEntity {
   })
   updatedAt: Date;
 
-  @OneToOne(() => MightDoList, (mightDoList) => mightDoList.highlight)
+  //One highlight can be used by many Might-Do List
+  @OneToMany(() => MightDoList, (mightDoList) => mightDoList.highlight)
   mightDoList: MightDoList;
 }

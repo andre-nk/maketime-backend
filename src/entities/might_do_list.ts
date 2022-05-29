@@ -50,8 +50,10 @@ export class MightDoList extends BaseEntity {
   })
   updatedAt: Date;
 
+  //One Might-Do List can only have one highlight, which will be included in this table via @JoinColumn
   @OneToOne(
     () => Highlight,
+    //This connection chain is available on both files
     highlight => highlight.mightDoList
   )
   @JoinColumn({

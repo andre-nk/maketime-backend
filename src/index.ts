@@ -18,7 +18,9 @@ const main = async () => {
     username: "postgres",
     password: undefined,
     database: "maketime-dev",
+    //Add entities on DB init
     entities: [Highlight, BurnerList, MightDoList, TrivialQuestion, StackRank],
+    //Synchronize entities with table (auto-migrate)
     synchronize: true,
   });
 
