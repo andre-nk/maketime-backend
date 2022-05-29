@@ -5,14 +5,16 @@ import {
   UpdateDateColumn,
   CreateDateColumn,
   PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from "typeorm";
 
 @Entity("burner_list")
 export class BurnerList extends BaseEntity {
-  @PrimaryColumn({
-    type: "uuid",
-  })
+  @PrimaryGeneratedColumn("uuid")
   id: string;
+
+  @Column()
+  uid: string;
 
   @Column({
     name: "title",

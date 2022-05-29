@@ -1,22 +1,36 @@
-import { Entity, BaseEntity, Column, UpdateDateColumn, CreateDateColumn, PrimaryColumn } from "typeorm";
+import {
+  Entity,
+  BaseEntity,
+  Column,
+  UpdateDateColumn,
+  CreateDateColumn,
+  PrimaryColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { MightDoList } from "./might_do_list";
 
-@Entity('highlight')
+@Entity("highlight")
 export class Highlight extends BaseEntity {
-    @PrimaryColumn({
-        type: "uuid"
-    })
-    id: string;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @Column()
-    highlight: string;
+  @Column()
+  uid: string;
 
-    @CreateDateColumn({
-        name: "created_at"
-    })
-    createdAt: Date;
+  @Column()
+  highlight: string;
 
-    @UpdateDateColumn({
-        name: "updated_at"
-    })
-    updatedAt: Date;
+  @CreateDateColumn({
+    name: "created_at",
+  })
+  createdAt: Date;
+
+  @UpdateDateColumn({
+    name: "updated_at",
+  })
+  updatedAt: Date;
+
+  @OneToOne(() => MightDoList, (mightDoList) => mightDoList.highlight)
+  mightDoList: MightDoList;
 }

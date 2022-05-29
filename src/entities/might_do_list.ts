@@ -5,22 +5,24 @@ import {
   UpdateDateColumn,
   CreateDateColumn,
   PrimaryColumn,
+  OneToOne,
+  JoinColumn,
+  PrimaryGeneratedColumn,
 } from "typeorm";
+import { Highlight } from "./highlight";
 
 @Entity("might_do_list")
 export class MightDoList extends BaseEntity {
-  @PrimaryColumn({
-    type: "uuid",
-  })
+  @PrimaryGeneratedColumn("uuid")
   id: string;
+
+  @Column()
+  uid: string;
 
   @Column({
     name: "title",
   })
   title: string;
-
-  @Column()
-  highlight: string;
 
   @Column({
     type: "text",
@@ -47,4 +49,13 @@ export class MightDoList extends BaseEntity {
     name: "updated_at",
   })
   updatedAt: Date;
+
+  @OneToOne(
+    () => Highlight,
+    highlight => highlight.mightDoList
+  )
+  @JoinColumn({
+    name: "highlight"
+  })
+  highlight: Highlight
 }
