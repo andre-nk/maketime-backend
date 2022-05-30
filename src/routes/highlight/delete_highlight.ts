@@ -4,31 +4,26 @@ import { Highlight } from "../../entities/highlight";
 
 const router = express.Router();
 
-router.post("/api/:uid/highlight", async (req, res) => {
+router.delete("/api/:uid/highlight/:h_id", async (req, res) => {
   //destructure route params
-  const { uid } = req.params;
-
-  //destructure json body
-  const { highlight } = req.body;
+  const { uid, h_id } = req.params;
 
   try {
     //Use Data Source API Query Builder, (insert -> specify target -> values in JSON array -> execute)
-    await dataSource
+    const response = await dataSource
       .createQueryBuilder()
-      .insert()
-      .into(Highlight)
-      .values([
-        {
-          uid,
-          highlight,
-        },
-      ])
+      .delete()
+      .from(Highlight)
+      .where({id: h_id})
+      .andWhere({uid})
       .execute();
+
+    console.log(response)
 
     //return / send back response
     return res.json({
       status: res.statusCode,
-      message: "Highlight has been created!",
+      message: "Highlight has been deleted!",
     });
   } catch (error) {
     return res.json({
@@ -38,4 +33,4 @@ router.post("/api/:uid/highlight", async (req, res) => {
   }
 });
 
-export { router as createHighlightRouter };
+export { router as deleteHighlightRouter };

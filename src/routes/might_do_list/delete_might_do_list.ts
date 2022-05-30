@@ -13,8 +13,8 @@ router.delete("/api/:uid/might-do-list/:list_id", async (req, res) => {
       .createQueryBuilder()
       .delete()
       .from(MightDoList)
-      .where("id = :id", { id: list_id })
-      .andWhere("uid = :uid", {uid})
+      .where({ id: list_id })
+      .andWhere({uid})
       .execute();
 
     return res.json({

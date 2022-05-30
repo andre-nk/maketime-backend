@@ -54,10 +54,13 @@ export class MightDoList extends BaseEntity {
   @OneToOne(
     () => Highlight,
     //This connection chain is available on both files
-    highlight => highlight.mightDoList
+    (highlight) => highlight.mightDoList,
+    {
+      onDelete: "SET NULL",
+    }
   )
   @JoinColumn({
-    name: "highlight"
+    name: "highlight",
   })
-  highlight: Highlight
+  highlight: Highlight;
 }

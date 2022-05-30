@@ -6,6 +6,10 @@ import { MightDoList } from "./entities/might_do_list";
 import { StackRank } from "./entities/stack_rank";
 import { TrivialQuestion } from "./entities/trivial_question";
 import { createHighlightRouter } from "./routes/highlight/create_highlight";
+import { deleteHighlightRouter } from "./routes/highlight/delete_highlight";
+import { getHighlightByIDRouter } from "./routes/highlight/get_highlight_by_id";
+import { getHighlightByMonthRouter } from "./routes/highlight/get_highlight_by_month";
+import { updateHighlightRouter } from "./routes/highlight/update_highlight";
 import { createMightDoListRouter } from "./routes/might_do_list/create_might_do_list";
 import { deleteMightDoListRouter } from "./routes/might_do_list/delete_might_do_list";
 import { updateMightDoListRouter } from "./routes/might_do_list/update_might_do_list";
@@ -37,7 +41,11 @@ const main = async () => {
     
       //Routes
         // Highlight Routes
+    app.use(getHighlightByIDRouter);
+    app.use(getHighlightByMonthRouter);
     app.use(createHighlightRouter);
+    app.use(updateHighlightRouter);
+    app.use(deleteHighlightRouter);
 
         // Might-Do List Routes
     app.use(createMightDoListRouter);

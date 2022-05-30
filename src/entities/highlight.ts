@@ -24,6 +24,7 @@ export class Highlight extends BaseEntity {
   //auto-generated dates, where column name can be specified
   @CreateDateColumn({
     name: "created_at",
+    unique: true,
   })
   createdAt: Date;
 
@@ -33,6 +34,8 @@ export class Highlight extends BaseEntity {
   updatedAt: Date;
 
   //One highlight can be used by many Might-Do List
-  @OneToMany(() => MightDoList, (mightDoList) => mightDoList.highlight)
+  @OneToMany(() => MightDoList, (mightDoList) => mightDoList.highlight, {
+    onDelete: "SET NULL",
+  })
   mightDoList: MightDoList;
 }

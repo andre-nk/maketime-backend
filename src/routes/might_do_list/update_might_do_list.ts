@@ -30,7 +30,7 @@ router.put("/api/:uid/might-do-list/:list_id", async (req, res) => {
         selectedTasks,
         highlight,
       })
-      .where("id = :id", { id: list_id })
+      .where({ id: list_id })
       .execute();
 
     return res.json({

@@ -4,9 +4,9 @@ import { Highlight } from "../../entities/highlight";
 
 const router = express.Router();
 
-router.post("/api/:uid/highlight", async (req, res) => {
+router.put("/api/:uid/highlight/:h_id", async (req, res) => {
   //destructure route params
-  const { uid } = req.params;
+  const { uid, h_id } = req.params;
 
   //destructure json body
   const { highlight } = req.body;
@@ -15,20 +15,18 @@ router.post("/api/:uid/highlight", async (req, res) => {
     //Use Data Source API Query Builder, (insert -> specify target -> values in JSON array -> execute)
     await dataSource
       .createQueryBuilder()
-      .insert()
-      .into(Highlight)
-      .values([
-        {
-          uid,
-          highlight,
-        },
-      ])
+      .update(Highlight)
+      .set({
+        uid,
+        highlight,
+      })
+      .where({id: h_id})
       .execute();
 
     //return / send back response
     return res.json({
       status: res.statusCode,
-      message: "Highlight has been created!",
+      message: "Highlight has been updated!",
     });
   } catch (error) {
     return res.json({
@@ -38,4 +36,4 @@ router.post("/api/:uid/highlight", async (req, res) => {
   }
 });
 
-export { router as createHighlightRouter };
+export { router as updateHighlightRouter };
