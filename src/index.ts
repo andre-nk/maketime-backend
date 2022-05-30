@@ -6,6 +6,7 @@ import { MightDoList } from "./entities/might_do_list";
 import { StackRank } from "./entities/stack_rank";
 import { TrivialQuestion } from "./entities/trivial_question";
 import { createHighlightRouter } from "./routes/highlight/create_highlight";
+import { createMightDoListRouter } from "./routes/might_do_list/create_might_do_list";
 
 //Declare express app
 const app = express();
@@ -34,6 +35,7 @@ const main = async () => {
     app.use(express.json());
       //Routes
     app.use(createHighlightRouter);
+    app.use(createMightDoListRouter);
 
     //Initialize in port
     app.listen(8080, () => {

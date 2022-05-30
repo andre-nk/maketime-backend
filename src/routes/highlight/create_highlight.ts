@@ -3,9 +3,12 @@ import { Highlight } from "../../entities/highlight";
 
 const router = express.Router();
 
-router.post("/api/highlight", async (req, res) => {
+router.post("/api/:uid/highlight", async (req, res) => {
+  //destructure route params
+  const {uid} = req.params;
+
   //destructure json body
-  const { highlight, uid } = req.body;
+  const { highlight } = req.body;
 
   //create Highlight instance (where dates and uid is auto-created)
   const highlightInstance = Highlight.create({
