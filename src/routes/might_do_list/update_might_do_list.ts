@@ -5,8 +5,8 @@ import { MightDoList } from "../../entities/might_do_list";
 
 const router = express.Router();
 
-router.post("/api/:uid/might-do-list", async (req, res) => {
-  const { uid } = req.params;
+router.put("/api/:uid/might-do-list/:list_id", async (req, res) => {
+  const { uid, list_id } = req.params;
   const { mightDoTasks, selectedTasks, title, highlightID } = req.body;
 
   try {
@@ -16,28 +16,26 @@ router.post("/api/:uid/might-do-list", async (req, res) => {
     if (!highlight) {
       return res.json({
         status: 404,
-        message: "No Might-Do List found with this specified Highlight ID",
+        message: "No Highlight found with this specified ID",
       });
     }
 
     await dataSource
       .createQueryBuilder()
-      .insert()
-      .into(MightDoList)
-      .values([
-        {
-          title,
-          uid,
-          mightDoTasks,
-          selectedTasks,
-          highlight,
-        },
-      ])
+      .update(MightDoList)
+      .set({
+        title,
+        uid,
+        mightDoTasks,
+        selectedTasks,
+        highlight,
+      })
+      .where("id = :id", { id: list_id })
       .execute();
 
     return res.json({
       status: res.statusCode,
-      message: "Might-Do List has been created!",
+      message: "Might-Do List has been updated!",
     });
   } catch (error) {
     return res.json({
@@ -47,4 +45,4 @@ router.post("/api/:uid/might-do-list", async (req, res) => {
   }
 });
 
-export { router as createMightDoListRouter };
+export { router as updateMightDoListRouter };
