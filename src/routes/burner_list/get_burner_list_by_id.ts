@@ -9,7 +9,6 @@ router.get("/api/:uid/burner-list/:list_id", async (req, res) => {
   const { uid, list_id } = req.params;
 
   try {
-    //Use Data Source API Query Builder, (insert -> specify target -> values in JSON array -> execute)
     const mightDoList = await dataSource
       .getRepository(BurnerList)
       .createQueryBuilder("burner_list")

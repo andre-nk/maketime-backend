@@ -9,7 +9,7 @@ router.delete("/api/:uid/highlight/:h_id", async (req, res) => {
   const { uid, h_id } = req.params;
 
   try {
-    //Use Data Source API Query Builder, (insert -> specify target -> values in JSON array -> execute)
+    
     const response = await dataSource
       .createQueryBuilder()
       .delete()

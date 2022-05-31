@@ -12,7 +12,7 @@ router.put("/api/:uid/highlight/:h_id", async (req, res) => {
   const { highlight } = req.body;
 
   try {
-    //Use Data Source API Query Builder, (insert -> specify target -> values in JSON array -> execute)
+    
     await dataSource
       .createQueryBuilder()
       .update(Highlight)

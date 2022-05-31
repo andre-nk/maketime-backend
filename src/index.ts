@@ -1,5 +1,7 @@
 import express from "express";
 import { DataSource } from "typeorm";
+import { pagination } from "typeorm-pagination";
+
 import { BurnerList } from "./entities/burner_list";
 import { Highlight } from "./entities/highlight";
 import { MightDoList } from "./entities/might_do_list";
@@ -22,7 +24,14 @@ import { updateStackRankRouter } from "./routes/stack_rank/update_stack_rank";
 import { deleteStackRankRouter } from "./routes/stack_rank/delete_stack_rank";
 import { getBurnerListByIDRouter } from "./routes/burner_list/get_burner_list_by_id";
 import { getBurnerListByMonthRouter } from "./routes/burner_list/get_burner_list_by_month";
-
+import { createBurnerListRouter } from "./routes/burner_list/create_burner_list";
+import { updateBurnerListRouter } from "./routes/burner_list/update_burner_list";
+import { deleteBurnerListRouter } from "./routes/burner_list/delete_burner_list";
+import { getTrivialQuestionByIDRouter } from "./routes/trivial_question/get_trivial_question_by_id";
+import { getTrivialQuestions } from "./routes/trivial_question/get_trivial_questions";
+import { createTrivialQuestion } from "./routes/trivial_question/create_trivial_question";
+import { updateTrivialQuestion } from "./routes/trivial_question/update_trivial_question";
+import { deleteTrivialQuestion } from "./routes/trivial_question/delete_trivial_question";
 //Declare express app
 const app = express();
 export const dataSource = new DataSource({
@@ -47,6 +56,7 @@ const main = async () => {
     //Middlewares
     //Basic config
     app.use(express.json());
+    app.use(pagination);
 
     //Routes
     // Highlight Routes
@@ -66,9 +76,9 @@ const main = async () => {
     //Burner List Routes
     app.use(getBurnerListByIDRouter);
     app.use(getBurnerListByMonthRouter);
-    app.use(createMightDoListRouter);
-    app.use(updateMightDoListRouter);
-    app.use(deleteMightDoListRouter);
+    app.use(createBurnerListRouter);
+    app.use(updateBurnerListRouter);
+    app.use(deleteBurnerListRouter);
 
     // Stack Rank List Routes
     app.use(getStackRankByIDRouter);
@@ -76,6 +86,13 @@ const main = async () => {
     app.use(createStackRankRouter);
     app.use(updateStackRankRouter);
     app.use(deleteStackRankRouter);
+
+    //Trivial Question Routes
+    app.use(getTrivialQuestionByIDRouter);
+    app.use(getTrivialQuestions);
+    app.use(createTrivialQuestion);
+    app.use(updateTrivialQuestion);
+    app.use(deleteTrivialQuestion);
 
     //Initialize in port
     app.listen(8080, () => {

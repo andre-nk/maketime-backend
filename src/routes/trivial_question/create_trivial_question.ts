@@ -1,34 +1,30 @@
 import express from "express";
 import { dataSource } from "../../index";
-import { Highlight } from "../../entities/highlight";
+import { TrivialQuestion } from "../../entities/trivial_question";
 
 const router = express.Router();
 
-router.post("/api/:uid/highlight", async (req, res) => {
-  //destructure route params
+router.post("/api/:uid/trivial", async (req, res) => {
   const { uid } = req.params;
 
-  //destructure json body
-  const { highlight } = req.body;
+  const { question } = req.body;
 
   try {
-    
     await dataSource
       .createQueryBuilder()
       .insert()
-      .into(Highlight)
+      .into(TrivialQuestion)
       .values([
         {
           uid,
-          highlight,
+          question,
         },
       ])
       .execute();
 
-    //return / send back response
     return res.json({
       status: res.statusCode,
-      message: "Highlight has been created!",
+      message: "Trivial question has been added!",
     });
   } catch (error) {
     return res.json({
@@ -38,4 +34,4 @@ router.post("/api/:uid/highlight", async (req, res) => {
   }
 });
 
-export { router as createHighlightRouter };
+export {router as createTrivialQuestion}

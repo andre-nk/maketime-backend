@@ -19,7 +19,7 @@ export class TrivialQuestion extends BaseEntity {
   @Column({
     name: "question",
   })
-  title: string;
+  question: string;
 
   @CreateDateColumn({
     name: "created_at",

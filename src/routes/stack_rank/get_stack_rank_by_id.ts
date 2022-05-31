@@ -9,7 +9,7 @@ router.get("/api/:uid/stack-rank/:rank_id", async (req, res) => {
   const { uid, rank_id } = req.params;
 
   try {
-    //Use Data Source API Query Builder, (insert -> specify target -> values in JSON array -> execute)
+    
     const mightDoList = await dataSource
       .getRepository(StackRank)
       .createQueryBuilder("stack_rank")
